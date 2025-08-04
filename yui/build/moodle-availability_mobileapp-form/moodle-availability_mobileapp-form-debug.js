@@ -5,6 +5,7 @@ YUI.add('moodle-availability_mobileapp-form', function (Y, NAME) {
  *
  * @module moodle-availability_mobileapp-form
  */
+// eslint-disable-next-line camelcase
 M.availability_mobileapp = M.availability_mobileapp || {};
 
 /**
@@ -15,11 +16,12 @@ M.availability_mobileapp.form = Y.Object(M.core_availability.plugin);
 
 M.availability_mobileapp.form.getNode = function(json) {
     // Create HTML structure.
+    // eslint-disable-next-line no-restricted-properties
     var strings = M.str.availability_mobileapp;
     var html = strings.title + ' <span class="availability-group">';
 
     html += '<label><span class="accesshide">' + strings.label_access +
-            ' </span><select name="e" title="' + strings.label_access + '">' +
+            ' </span><select name="e" class="form-select" title="' + strings.label_access + '">' +
             '<option value="1">' + strings.requires_app + '</option>' +
             '<option value="2">' + strings.requires_notapp + '</option>' +
             '</select></label></span>';

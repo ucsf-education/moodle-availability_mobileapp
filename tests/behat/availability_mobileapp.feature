@@ -21,7 +21,8 @@ Feature: availability_mobileapp
       | enablewebservices | 1 |
       | enablemobilewebservice | 1 |
     And I log in as "admin"
-    And I navigate to "Mobile settings" node in "Site administration > Mobile app"
+    And I follow "Site administration"
+    And I navigate to "Advanced features" in site administration
     And I click on "Enable web services for mobile devices" "checkbox"
     And I click on "Save changes" "button"
     And I log out
@@ -33,7 +34,7 @@ Feature: availability_mobileapp
     And I am on "Course 1" course homepage with editing mode on
 
     # Add a Page with a Mobile app condition that does not match.
-    And I add a "Page" to section "1"
+    And I add a "Page" to section "1" using the activity chooser
     And I set the following fields to these values:
       | Name         | Page 1 |
       | Description  | Test   |
@@ -46,7 +47,7 @@ Feature: availability_mobileapp
     And I press "Save and return to course"
 
     # Add a Page with a date condition that does match.
-    And I add a "Page" to section "2"
+    And I add a "Page" to section "2" using the activity chooser
     And I set the following fields to these values:
       | Name         | Page 2 |
       | Description  | Test   |

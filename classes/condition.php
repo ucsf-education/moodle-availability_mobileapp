@@ -24,8 +24,6 @@
 
 namespace availability_mobileapp;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Mobile app access condition.
  *
@@ -60,8 +58,13 @@ class condition extends \core_availability\condition {
         }
     }
 
+    /**
+     * Returns a JSON object which corresponds to the condition.
+     *
+     * @return object
+     */
     public function save() {
-        return (object)array('type' => 'mobileapp', 'e' => $this->accesstype);
+        return (object)['type' => 'mobileapp', 'e' => $this->accesstype];
     }
 
     /**
@@ -74,9 +77,14 @@ class condition extends \core_availability\condition {
      * @return stdClass Object representing condition
      */
     public static function get_json($accesstype) {
-        return (object)array('type' => 'mobileapp', 'e' => (int)$accesstype);
+        return (object)['type' => 'mobileapp', 'e' => (int)$accesstype];
     }
 
+    /**
+     * Returns a string that can be used for debugging purposes.
+     *
+     * @return string
+     */
     protected function get_debug_string() {
         return '#' . $this->accesstype;
     }
@@ -111,6 +119,15 @@ class condition extends \core_availability\condition {
         return false;
     }
 
+    /**
+     * Check if the condition is available for the user.
+     *
+     * @param bool $not
+     * @param \core_availability\info $info
+     * @param bool $grabthelot
+     * @param int $userid
+     * @return bool
+     */
     public function is_available($not, \core_availability\info $info, $grabthelot, $userid) {
 
         $allow = false;
@@ -131,6 +148,15 @@ class condition extends \core_availability\condition {
         return $allow;
     }
 
+    /**
+     * Returns a description of the condition.
+     *
+     * @param bool $full
+     * @param bool $not
+     * @param \core_availability\info $info
+     * @return \lang_string|string
+     * @throws \coding_exception
+     */
     public function get_description($full, $not, \core_availability\info $info) {
 
         if ($this->accesstype == self::MOBILE_APP) {

@@ -24,8 +24,6 @@
 
 namespace availability_mobileapp;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Front-end class.
  *
@@ -35,11 +33,25 @@ defined('MOODLE_INTERNAL') || die();
  */
 class frontend extends \core_availability\frontend {
 
+    /**
+     * Get the name of the condition.
+     *
+     * @return string[]
+     */
     protected function get_javascript_strings() {
-        return array('requires_app', 'requires_notapp', 'label_access');
+        return ['requires_app', 'requires_notapp', 'label_access'];
     }
 
-    protected function allow_add($course, \cm_info $cm = null, \section_info $section = null) {
+    /**
+     * Check if the condition can be added to the course.
+     *
+     * @param \stdClass $course the course object
+     * @param \cm_info|null $cm The course module info object, if available
+     * @param \section_info|null $section The section info object, if available
+     * @return bool
+     * @throws \dml_exception
+     */
+    protected function allow_add($course, ?\cm_info $cm = null, ?\section_info $section = null) {
         global $CFG, $DB;
 
         // Check if Web Services are enabled.
@@ -48,11 +60,11 @@ class frontend extends \core_availability\frontend {
         }
 
         // Check if Mobile services are enabled.
-        $mobileservice = $DB->get_record('external_services', array('shortname' => MOODLE_OFFICIAL_MOBILE_SERVICE, 'enabled' => 1));
+        $mobileservice = $DB->get_record('external_services', ['shortname' => MOODLE_OFFICIAL_MOBILE_SERVICE, 'enabled' => 1]);
         // Rare case, the official service is disabled but the local_mobile services are enabled.
-        $extraservice = $DB->get_record('external_services', array('shortname' => 'local_mobile', 'enabled' => 1));
+        $extraservice = $DB->get_record('external_services', ['shortname' => 'local_mobile', 'enabled' => 1]);
 
-        if (!$mobileservice and !$extraservice) {
+        if (!$mobileservice && !$extraservice) {
             return false;
         }
 

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines {@link \availability_mobileapp\privacy\provider} class.
+ * Defines {@see \availability_mobileapp\privacy\provider} class.
  *
  * @package     availability_mobileapp
  * @category    privacy
@@ -24,8 +24,6 @@
  */
 
 namespace availability_mobileapp\privacy;
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Privacy API implementation for the Restriction by Mobile app access plugin.
@@ -42,7 +40,8 @@ class provider implements \core_privacy\local\metadata\null_provider {
      *
      * @return string
      */
-    public static function _get_reason() {
+    #[\Override]
+    public static function get_reason() {
         return 'privacy:metadata';
     }
 }
