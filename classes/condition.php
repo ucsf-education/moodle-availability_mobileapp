@@ -34,7 +34,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class condition extends \core_availability\condition {
-
     /**  @var int Mobile app access */
     const MOBILE_APP = 1;
 
@@ -61,7 +60,7 @@ class condition extends \core_availability\condition {
     }
 
     public function save() {
-        return (object)array('type' => 'mobileapp', 'e' => $this->accesstype);
+        return (object)['type' => 'mobileapp', 'e' => $this->accesstype];
     }
 
     /**
@@ -74,7 +73,7 @@ class condition extends \core_availability\condition {
      * @return stdClass Object representing condition
      */
     public static function get_json($accesstype) {
-        return (object)array('type' => 'mobileapp', 'e' => (int)$accesstype);
+        return (object)['type' => 'mobileapp', 'e' => (int)$accesstype];
     }
 
     protected function get_debug_string() {
@@ -145,5 +144,4 @@ class condition extends \core_availability\condition {
 
         return get_string($str, 'availability_mobileapp');
     }
-
 }
