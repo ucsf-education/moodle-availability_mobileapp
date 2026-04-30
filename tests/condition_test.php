@@ -24,12 +24,6 @@
 
 namespace availability_mobileapp;
 
-defined('MOODLE_INTERNAL') || die();
-
-use availability_mobileapp\condition;
-
-global $CFG;
-
 /**
  * Unit tests for the Mobile app condition.
  *
@@ -37,7 +31,7 @@ global $CFG;
  * @copyright availability_mobileapp
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class condition_test extends \advanced_testcase {
+final class condition_test extends \advanced_testcase {
     /**
      * Load required classes.
      */
@@ -45,12 +39,15 @@ class condition_test extends \advanced_testcase {
         // Load the mock info class so that it can be used.
         global $CFG;
         require_once($CFG->dirroot . '/availability/tests/fixtures/mock_info.php');
+        parent::setUp();
     }
 
     /**
      * Tests constructing and using condition as part of tree.
+     *
+     * @covers \availability_mobileapp\condition::check_available
      */
-    public function test_in_tree() {
+    public function test_in_tree(): void {
         global $USER, $CFG;
         $this->resetAfterTest();
         $this->setAdminUser();
@@ -58,8 +55,7 @@ class condition_test extends \advanced_testcase {
         $generator = $this->getDataGenerator();
         $course = $generator->create_course();
         $page = $generator->get_plugin_generator('mod_page')->create_instance(
-            ['course' => $course->id]
-        );
+                ['course' => $course->id]);
 
         $modinfo = get_fast_modinfo($course);
         $cm = $modinfo->get_cm($page->cmid);
@@ -88,8 +84,10 @@ class condition_test extends \advanced_testcase {
     /**
      * Tests the constructor including error conditions. Also tests the
      * string conversion feature (intended for debugging only).
+     *
+     * @covers \availability_mobileapp\condition::__construct
      */
-    public function test_constructor() {
+    public function test_constructor(): void {
         // No parameters.
         $structure = new \stdClass();
 
@@ -113,8 +111,10 @@ class condition_test extends \advanced_testcase {
 
     /**
      * Tests the save() function.
+     *
+     * @covers \availability_mobileapp\condition::save
      */
-    public function test_save() {
+    public function test_save(): void {
         $structure = (object)['e' => condition::MOBILE_APP];
         $cond = new condition($structure);
         $structure->type = 'mobileapp';
@@ -123,8 +123,10 @@ class condition_test extends \advanced_testcase {
 
     /**
      * Tests the is_available and get_description functions.
+     *
+     * @covers \availability_mobileapp\condition::is_available
      */
-    public function test_usage() {
+    public function test_usage(): void {
         global $USER;
         $this->resetAfterTest();
 
