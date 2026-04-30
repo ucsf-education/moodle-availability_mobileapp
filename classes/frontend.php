@@ -32,10 +32,27 @@ namespace availability_mobileapp;
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class frontend extends \core_availability\frontend {
+    /**
+     * Get the name of the condition.
+     *
+     * @return string[]
+     */
     protected function get_javascript_strings() {
         return ['requires_app', 'requires_notapp', 'label_access'];
     }
 
+
+
+
+    /**
+     * Check if the condition can be added to the course.
+     *
+     * @param \stdClass $course the course object
+     * @param \cm_info|null $cm The course module info object, if available
+     * @param \section_info|null $section The section info object, if available
+     * @return bool
+     * @throws \dml_exception
+     */
     protected function allow_add($course, ?\cm_info $cm = null, ?\section_info $section = null) {
         global $CFG, $DB;
 

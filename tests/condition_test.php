@@ -55,7 +55,8 @@ final class condition_test extends \advanced_testcase {
         $generator = $this->getDataGenerator();
         $course = $generator->create_course();
         $page = $generator->get_plugin_generator('mod_page')->create_instance(
-                ['course' => $course->id]);
+            ['course' => $course->id]
+        );
 
         $modinfo = get_fast_modinfo($course);
         $cm = $modinfo->get_cm($page->cmid);
